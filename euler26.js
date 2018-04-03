@@ -32,14 +32,11 @@ function div(x,y,str){
     } else {
         res += String(whole)
         i+= 1;
-            console.log("gets here")
         return div(reminder*10,newY,res)
     }
   }
 }
 
 //evaluate recurring pattern
-
 //1. store all numbers of division until a limit
-
 //2. get index of all starting numbers and store in array.
