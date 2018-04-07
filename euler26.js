@@ -1,6 +1,9 @@
 //function that divides with strings
-let i = 0
-console.log(div(1,3))
+for (let d =2;d<1000;d++){
+  console.log(div(1,d))
+}
+
+
 
 function div(x,y,str, count){
   let res = str || '';
@@ -39,7 +42,7 @@ function div(x,y,str, count){
   }
 }
 
-const findRecurrent = str => {
+const allIndexesFirst = str => {
   //find indexes of first item
   let firstChar = str.charAt(0);
   let allIndexes = [0]
@@ -52,16 +55,19 @@ const findRecurrent = str => {
         pos = index+1
     }
   }
+
   return allIndexes
-
-  //compare the following ones
-
-  //if it reaches the other indexes theres a pattern
-
 }
 
+const recurrent = str =>{
+  let firstIndexes = allIndexes(str)
+  stringArray = []
+  //divide in parts
+  for (let i = 0;i<firstIndexes.length;i++){
 
-console.log(findRecurrent('abcabcabc'));
+  }
+}
+
 //evaluate recurring pattern
 //1. store all numbers of division until a limit
 //2. get index of all starting numbers and store in array.
