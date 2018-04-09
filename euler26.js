@@ -1,8 +1,9 @@
 //function that divides with strings
-for (let d =2;d<1000;d++){
-  console.log(div(1,d))
-}
+// for (let d =2;d<1000;d++){
+//   console.log(div(1,d))
+// }
 
+console.log(div(1,7))
 
 
 function div(x,y,str, count){
@@ -59,14 +60,67 @@ const allIndexesFirst = str => {
   return allIndexes
 }
 
-const recurrent = str =>{
-  let firstIndexes = allIndexes(str)
-  stringArray = []
-  //divide in parts
-  for (let i = 0;i<firstIndexes.length;i++){
+//function that returns all the substrings of a string as an array
+function allSubstrings(str){
+  sub = []
+  //start from length l=1 to (Without duplicating)
+  for (let l = 1; l<=str.length/2; l++){
 
+    //if its not in the array, add it
+    for (let i = 0; i<str.length; i+=1){
+      let subString = str.substring(i, i+l);
+
+      //TODO:This is not evaluating corretly
+      if (sub.indexOf(subString)==-1){
+        sub.push(subString)
+      }
+    }
   }
+  //al the substrings with n elements
+  return sub
 }
+
+
+const recurrent = str =>{
+  //get all substrings.
+  allSubstrings = allSubstrings(str)
+  //evaluate if they repeat
+  repeatingPattern = ''
+
+
+  allSubstrings.forEach(e => {
+    indexOfE = str.indexOf(e)
+    // console.log('indexOfE = '+indexOfE)
+    lengthOfE = e.length
+    isRecurrent = true
+
+    for (let i =indexOfE+lengthOfE; i<str.length; i+=lengthOfE){
+      if(str.indexOf(e, i)==i){
+        isRecurrent = true
+        // console.log(e+' is at index '+ i+ ' / str.indexOf(e) = '+str.indexOf(e, i))
+      } else {
+        // console.log(e+' is not at index' + i)
+        isRecurrent = false
+        break;
+      }
+    }
+
+    if (isRecurrent){
+      repeatingPattern += e
+      return false
+    }
+  });
+
+  if(repeatingPattern != ''){
+    return repeatingPattern
+  }
+
+  return null
+}
+// console.log(recurrent('abcabcabc'))
+console.log(recurrent('14567567')) //weird behavior
+// console.log(recurrent('56545697697697'))
+
 
 //evaluate recurring pattern
 //1. store all numbers of division until a limit
