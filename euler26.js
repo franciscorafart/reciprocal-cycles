@@ -43,7 +43,7 @@ function div(x,y,str, count){
   }
 }
 
-const allIndexesFirst = str => {
+function allIndexesFirst(str){
   //find indexes of first item
   let firstChar = str.charAt(0);
   let allIndexes = [0]
@@ -80,36 +80,32 @@ function allSubstrings(str){
   return sub
 }
 
-
-const recurrent = str =>{
+function recurrent(str){
   //get all substrings.
-  allSubstrings = allSubstrings(str)
-  //evaluate if they repeat
+  //TODO: Refactor to pure function
+  Substrings = allSubstrings(str);
   repeatingPattern = ''
 
+  for (inSt = 0; inSt<Substrings.length; inSt++){
+      let e = Substrings[inSt]
+      indexOfE = str.indexOf(e)
+      lengthOfE = e.length
+      isRecurrent = true
 
-  allSubstrings.forEach(e => {
-    indexOfE = str.indexOf(e)
-    // console.log('indexOfE = '+indexOfE)
-    lengthOfE = e.length
-    isRecurrent = true
-
-    for (let i =indexOfE+lengthOfE; i<str.length; i+=lengthOfE){
-      if(str.indexOf(e, i)==i){
-        isRecurrent = true
-        // console.log(e+' is at index '+ i+ ' / str.indexOf(e) = '+str.indexOf(e, i))
-      } else {
-        // console.log(e+' is not at index' + i)
-        isRecurrent = false
-        break;
+      for (let i =indexOfE+lengthOfE; i<str.length; i+=lengthOfE){
+        if(str.indexOf(e, i)==i){
+          isRecurrent = true
+        } else {
+          isRecurrent = false
+          break;
+        }
       }
-    }
+      if (isRecurrent){
+        repeatingPattern = e
+        break
+      }
+  }
 
-    if (isRecurrent){
-      repeatingPattern += e
-      return false
-    }
-  });
 
   if(repeatingPattern != ''){
     return repeatingPattern
@@ -117,11 +113,3 @@ const recurrent = str =>{
 
   return null
 }
-// console.log(recurrent('abcabcabc'))
-console.log(recurrent('14567567')) //weird behavior
-// console.log(recurrent('56545697697697'))
-
-
-//evaluate recurring pattern
-//1. store all numbers of division until a limit
-//2. get index of all starting numbers and store in array.
