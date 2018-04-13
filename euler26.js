@@ -1,11 +1,3 @@
-//function that divides with strings
-// for (let d =2;d<1000;d++){
-//   console.log(div(1,d))
-// }
-
-console.log(div(1,7))
-
-
 function div(x,y,str, count){
   let res = str || '';
   let i = count || 0
@@ -16,7 +8,7 @@ function div(x,y,str, count){
   reminder = x%y;
   let newY = y
 
-  if (i > 50){
+  if (i > 300){
     return res;
   }
 
@@ -70,7 +62,6 @@ function allSubstrings(str){
     for (let i = 0; i<str.length; i+=1){
       let subString = str.substring(i, i+l);
 
-      //TODO:This is not evaluating corretly
       if (sub.indexOf(subString)==-1){
         sub.push(subString)
       }
@@ -106,10 +97,33 @@ function recurrent(str){
       }
   }
 
-
   if(repeatingPattern != ''){
     return repeatingPattern
   }
 
   return null
 }
+
+function longestRecurring(n){
+  largest = 0
+  d = 0
+
+  for (let i = 2; i<n; i++){
+      let division = div(1,i);
+      //TODO: Use reduce function to reduce to one element
+      if(division.length > 80){
+        let recurrentString = recurrent(division);
+        console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
+        if(recurrentString && recurrentString.length>largest){
+          largest = recurrentString.length
+          d = i
+        }
+
+      }
+  }
+  return d
+}
+
+console.log(longestRecurring(1000))
+
+console.log(recurrent("abcabcabcabca"))
