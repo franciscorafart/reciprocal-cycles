@@ -1,26 +1,26 @@
 function div(x,y,str, count){
   let res = str || '';
   let i = count || 0
-
   let reminder = 0;
   let division = x/y;
   let whole = Math.floor(division)
   reminder = x%y;
   let newY = y
 
-  if (i > 1000){
-    return res;
-  }
+  // let recur = recurrent(res)
+  //TODO: Problem...it breaks the string at an arbitrary number, not displaying the true recurring string.
+  //Need to evaluate the string untill it repeats a couple of times.
 
-  if (i == 0){
-    if (reminder == 0){
-      res+=String(whole)
-      return res
-    } else {
-        res += String(whole)+'.';
-        i+=1
-        return div(reminder*10,newY,res, i)
-    }
+  //1.evaluate if there's recurring element
+  // if (recur && recur == rec){
+  //   console.log('res = '+res+', recur = '+recur);
+  //   return res
+  // } else if (i > 1000) {
+  //   return res
+  // }
+
+  if (i > 500) {
+    return res
   }
 
   if (i != 0){
@@ -33,23 +33,17 @@ function div(x,y,str, count){
         return div(reminder*10,newY,res, i)
     }
   }
-}
 
-function allIndexesFirst(str){
-  //find indexes of first item
-  let firstChar = str.charAt(0);
-  let allIndexes = [0]
-
-  for (let pos =1; pos<str.length; pos++){
-    let index = str.indexOf(firstChar,pos)
-
-    if (index>=0){
-        allIndexes.push(index)
-        pos = index+1
+  if (i == 0){
+    if (reminder == 0){
+      res+=String(whole)
+      return res
+    } else {
+        res += String(whole)+'.';
+        i+=1
+        return div(reminder*10,newY,res, i)
     }
   }
-
-  return allIndexes
 }
 
 //function that returns all the substrings of a string as an array
@@ -80,11 +74,19 @@ function recurrent(str){
       let e = Substrings[inSt]
       indexOfE = str.indexOf(e)
       lengthOfE = e.length
-      isRecurrent = true
+      isRecurrent = null
 
-      for (let i =indexOfE+lengthOfE; i<str.length; i+=lengthOfE){
+      let tail = str.length - lengthOfE
+
+      for (let i =indexOfE+lengthOfE; i<str.length-lengthOfE; i+=lengthOfE){
         if(str.indexOf(e, i)==i){
           isRecurrent = true
+
+          //TODO: tail of the string evaluation
+          // if(str.substring(str.length-tail)){
+          //
+          // }
+
         } else {
           isRecurrent = false
           break;
@@ -110,7 +112,7 @@ function longestRecurring(n){
   for (let i = 3; i<n; i+=2){
       let division = div(1,i);
       //TODO: Use reduce function to reduce to one element
-      if(division.length > 200){
+      if(division.length > 100){
         let recurrentString = recurrent(division);
         console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
         if(recurrentString && recurrentString.length>largest){
@@ -123,6 +125,8 @@ function longestRecurring(n){
   return d
 }
 
-console.log(longestRecurring(1000))
 
-// console.log(recurrent("abcabcabcabca"))
+
+console.log(longestRecurring(1000))
+// console.log(recurrent('0.1234'))
+// console.log(recurrent("abcabcabcabcabb"))
