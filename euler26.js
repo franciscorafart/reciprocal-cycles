@@ -8,7 +8,7 @@ function div(x,y,str, count){
   reminder = x%y;
   let newY = y
 
-  if (i > 300){
+  if (i > 1000){
     return res;
   }
 
@@ -73,7 +73,6 @@ function allSubstrings(str){
 
 function recurrent(str){
   //get all substrings.
-  //TODO: Refactor to pure function
   Substrings = allSubstrings(str);
   repeatingPattern = ''
 
@@ -108,10 +107,10 @@ function longestRecurring(n){
   largest = 0
   d = 0
 
-  for (let i = 2; i<n; i++){
+  for (let i = 3; i<n; i+=2){
       let division = div(1,i);
       //TODO: Use reduce function to reduce to one element
-      if(division.length > 80){
+      if(division.length > 200){
         let recurrentString = recurrent(division);
         console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
         if(recurrentString && recurrentString.length>largest){
@@ -126,4 +125,4 @@ function longestRecurring(n){
 
 console.log(longestRecurring(1000))
 
-console.log(recurrent("abcabcabcabca"))
+// console.log(recurrent("abcabcabcabca"))
