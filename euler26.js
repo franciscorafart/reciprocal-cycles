@@ -7,24 +7,25 @@ function div(x,y,str, count){
   reminder = x%y;
   let newY = y
 
-  // let recur = recurrent(res)
+
   //TODO: Problem...it breaks the string at an arbitrary number, not displaying the true recurring string.
   //Need to evaluate the string untill it repeats a couple of times.
 
-  //1.evaluate if there's recurring element
-  // if (recur && recur == rec){
-  //   console.log('res = '+res+', recur = '+recur);
-  //   return res
-  // } else if (i > 1000) {
+  //Every 100 digits evaluate if there is recurssion
+  if (i % 200 == 0) {
+    let recur = recurrent(res)
+    if(recur){
+      return res
+    }
+  }
+
+  // if (i>1000){
   //   return res
   // }
 
-  if (i > 500) {
-    return res
-  }
-
   if (i != 0){
     if (reminder == 0){
+
       res += String(whole)
       return res
     } else {
@@ -76,16 +77,18 @@ function recurrent(str){
       lengthOfE = e.length
       isRecurrent = null
 
-      let tail = str.length - lengthOfE
 
       for (let i =indexOfE+lengthOfE; i<str.length-lengthOfE; i+=lengthOfE){
         if(str.indexOf(e, i)==i){
           isRecurrent = true
+          let tIndex = i + lengthOfE
 
-          //TODO: tail of the string evaluation
-          // if(str.substring(str.length-tail)){
-          //
-          // }
+          //tail of the string evaluation
+          tailString = str.substring(tIndex)
+          if (isRecurrent && tailString.length <= e.length && e.indexOf(tailString) != 0){
+            isRecurrent = false
+          }
+
 
         } else {
           isRecurrent = false
@@ -109,18 +112,15 @@ function longestRecurring(n){
   largest = 0
   d = 0
 
-  for (let i = 3; i<n; i+=2){
+  for (let i = 3; i<n; i++){
       let division = div(1,i);
       //TODO: Use reduce function to reduce to one element
-      if(division.length > 100){
         let recurrentString = recurrent(division);
         console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
         if(recurrentString && recurrentString.length>largest){
           largest = recurrentString.length
           d = i
         }
-
-      }
   }
   return d
 }
@@ -128,5 +128,11 @@ function longestRecurring(n){
 
 
 console.log(longestRecurring(1000))
-// console.log(recurrent('0.1234'))
-// console.log(recurrent("abcabcabcabcabb"))
+// // console.log(recurrent('0.1234'))
+
+//Extreme cases
+// console.log(recurrent("0053763440"))
+// console.log(recurrent("abcabcabcabcab"))
+// console.log(recurrent("abcabcabcabc"))
+// console.log(recurrent("xyzxyzxyzxy"))
+// console.log(recurrent("xyzxyzxyzxyc"))
