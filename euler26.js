@@ -12,14 +12,14 @@ function div(x,y,str, count){
   //Need to evaluate the string untill it repeats a couple of times.
 
   //Every 100 digits evaluate if there is recurssion
-  if (i % 200 == 0) {
+  if (i % 400 == 0) {
     let recur = recurrent(res)
     if(recur){
       return res
     }
   }
 
-  // if (i>1000){
+  // if (i>4000){
   //   return res
   // }
 
