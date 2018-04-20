@@ -12,38 +12,32 @@ function div(x,y,str, count){
   //Need to evaluate the string untill it repeats a couple of times.
 
   //Every 100 digits evaluate if there is recurssion
-  if (i % 400 == 0) {
+  if (i>=300 && i%300 == 0) {
     let recur = recurrent(res)
     if(recur){
-      return res
+      return {res:res,recur:recur}
     }
   }
-
-  // if (i>4000){
-  //   return res
-  // }
 
   if (i != 0){
     if (reminder == 0){
 
       res += String(whole)
-      return res
+      return {res:res,recur:null}
     } else {
         res += String(whole)
         i+= 1;
         return div(reminder*10,newY,res, i)
     }
-  }
-
-  if (i == 0){
+  } else {
     if (reminder == 0){
       res+=String(whole)
-      return res
+      return {res:res,recur:null}
     } else {
         res += String(whole)+'.';
         i+=1
         return div(reminder*10,newY,res, i)
-    }
+      }
   }
 }
 
@@ -87,6 +81,7 @@ function recurrent(str){
           tailString = str.substring(tIndex)
           if (isRecurrent && tailString.length <= e.length && e.indexOf(tailString) != 0){
             isRecurrent = false
+            break
           }
 
 
@@ -113,9 +108,12 @@ function longestRecurring(n){
   d = 0
 
   for (let i = 3; i<n; i++){
-      let division = div(1,i);
+      let recObj =  div(1,i);
+
+      let division = recObj['res'];
+      let recurrentString = recObj['recur'];
       //TODO: Use reduce function to reduce to one element
-        let recurrentString = recurrent(division);
+        // let recurrentString = recurrent(division);
         console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
         if(recurrentString && recurrentString.length>largest){
           largest = recurrentString.length
@@ -124,8 +122,6 @@ function longestRecurring(n){
   }
   return d
 }
-
-
 
 console.log(longestRecurring(1000))
 // // console.log(recurrent('0.1234'))
