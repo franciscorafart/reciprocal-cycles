@@ -7,12 +7,8 @@ function div(x,y,str, count){
   reminder = x%y;
   let newY = y
 
-
-  //TODO: Problem...it breaks the string at an arbitrary number, not displaying the true recurring string.
-  //Need to evaluate the string untill it repeats a couple of times.
-
-  //Every 100 digits evaluate if there is recurssion
-  if (i>=300 && i%300 == 0) {
+  //Evaluate recursion
+  if ((i==50)||(i>=300 && i%300 == 0)) {
     let recur = recurrent(res)
     if(recur){
       return {res:res,recur:recur}
@@ -112,8 +108,6 @@ function longestRecurring(n){
 
       let division = recObj['res'];
       let recurrentString = recObj['recur'];
-      //TODO: Use reduce function to reduce to one element
-        // let recurrentString = recurrent(division);
         console.log('i = '+ i+' division = '+division +', recurrent: '+ recurrentString);
         if(recurrentString && recurrentString.length>largest){
           largest = recurrentString.length
@@ -124,9 +118,8 @@ function longestRecurring(n){
 }
 
 console.log(longestRecurring(1000))
-// // console.log(recurrent('0.1234'))
 
-//Extreme cases
+//Extreme cases test
 // console.log(recurrent("0053763440"))
 // console.log(recurrent("abcabcabcabcab"))
 // console.log(recurrent("abcabcabcabc"))
