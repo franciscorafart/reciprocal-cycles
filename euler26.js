@@ -15,82 +15,56 @@ function div(x,y,str, count){
     }
   }
 
-  if (i != 0){
     if (reminder == 0){
-
       res += String(whole)
       return {res:res,recur:null}
     } else {
-        res += String(whole)
-        i+= 1;
-        return div(reminder*10,newY,res, i)
+        if (i != 0){
+          res += String(whole)
+          i+= 1;
+          return div(reminder*10,newY,res, i)
+        } else {
+          res += String(whole)+'.';
+          i+=1
+          return div(reminder*10,newY,res, i)
+        }
     }
-  } else {
-    if (reminder == 0){
-      res+=String(whole)
-      return {res:res,recur:null}
-    } else {
-        res += String(whole)+'.';
-        i+=1
-        return div(reminder*10,newY,res, i)
-      }
-  }
+
 }
 
-//function that returns all the substrings of a string as an array
-// function allSubstrings(str){
-//   sub = []
-//   //start from length l=1 to (Without duplicating)
-//   for (let l = 1; l<=str.length/2; l--){
-//
-//     //if its not in the array, add it
-//     for (let i = 0; i<str.length; i+=1){
-//       let subString = str.substring(i, i+l);
-//
-//       if (sub.indexOf(subString)==-1){
-//         sub.push(subString)
-//       }
-//     }
-//   }
-//   //al the substrings with n elements
-//   return sub
-// }
-
 function sweepRecurrent(str){
-  //start from length l=1 to (Without duplicating)
+  //start from the largest length
   for (let l = str.length/2; l>=1; l--){
-
-    //if its not in the array, add it
     for (let i = 0; i<str.length; i+=1){
       let subString = str.substring(i, i+l);
 
-      if(recurrent(str, subString)){
-        return subString
+      let firstRecur = recurrent(str, subString)
+
+      if(firstRecur){
+        let secRecur = sweepRecurrent(firstRecur)
+        if (secRecur){
+          return sweepRecurrent(firstRecur)
+        } else {
+          return subString
+        }
+
       }
     }
   }
-
   return null
 }
 
 
-
+//function that tells if e is recurrent in str
 function recurrent(str, e){
-  //get all substrings.
-  // Substrings = allSubstrings(str);
-      repeatingPattern = ''
+      let indexOfE = str.indexOf(e)
 
-  // for (inSt = Substrings.length-1; inSt>=0; inSt--){
-      // let e = Substrings[inSt]
-      indexOfE = str.indexOf(e)
-      lengthOfE = e.length
-      isRecurrent = null
+      isRecurrent = false
 
-
-      for (let i =indexOfE+lengthOfE; i<str.length-lengthOfE; i+=lengthOfE){
+      for (let i =indexOfE+e.length; i<str.length-e.length; i+=e.length){
         if(str.indexOf(e, i)==i){
           isRecurrent = true
-          let tIndex = i + lengthOfE
+          let tIndex = i + e.length
 
           //tail of the string evaluation
           tailString = str.substring(tIndex)
@@ -106,14 +80,8 @@ function recurrent(str, e){
         }
       }
       if (isRecurrent){
-        repeatingPattern = e
-        // break
+        return e
       }
-  // }
-
-  if(repeatingPattern != ''){
-    return repeatingPattern
-  }
 
   return null
 }
@@ -136,14 +104,9 @@ function longestRecurring(n){
   }
   return d
 }
+//
+console.log(longestRecurring(1000))
 
-// console.log(longestRecurring(1000))
-
-//Extreme cases test
-// console.log(recurrent("0053763440"))
-// console.log(recurrent("abcabcabcabcab"))
-// console.log(recurrent("abcabcabcabc"))
-// console.log(recurrent("xyzxyzxyzxy"))
-// console.log(recurrent("xyzxyzxyzxyc"))
-
-console.log(div(1,487))
+//TODO: Smaller recurrents are wrong
+// console.log(recurrent('3636','36'))
+// console.log(recurrent('364364','364'))
