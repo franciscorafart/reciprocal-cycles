@@ -9,7 +9,7 @@ function div(x,y,str, count){
 
   //Evaluate recursion
   if ((i==50)||(i>=300 && i%300 == 0)) {
-    let recur = recurrent(res)
+    let recur = sweepRecurrent(res)
     if(recur){
       return {res:res,recur:recur}
     }
@@ -38,31 +38,50 @@ function div(x,y,str, count){
 }
 
 //function that returns all the substrings of a string as an array
-function allSubstrings(str){
-  sub = []
+// function allSubstrings(str){
+//   sub = []
+//   //start from length l=1 to (Without duplicating)
+//   for (let l = 1; l<=str.length/2; l--){
+//
+//     //if its not in the array, add it
+//     for (let i = 0; i<str.length; i+=1){
+//       let subString = str.substring(i, i+l);
+//
+//       if (sub.indexOf(subString)==-1){
+//         sub.push(subString)
+//       }
+//     }
+//   }
+//   //al the substrings with n elements
+//   return sub
+// }
+
+function sweepRecurrent(str){
   //start from length l=1 to (Without duplicating)
-  for (let l = 1; l<=str.length/2; l++){
+  for (let l = str.length/2; l>=1; l--){
 
     //if its not in the array, add it
     for (let i = 0; i<str.length; i+=1){
       let subString = str.substring(i, i+l);
 
-      if (sub.indexOf(subString)==-1){
-        sub.push(subString)
+      if(recurrent(str, subString)){
+        return subString
       }
     }
   }
-  //al the substrings with n elements
-  return sub
+
+  return null
 }
 
-function recurrent(str){
-  //get all substrings.
-  Substrings = allSubstrings(str);
-  repeatingPattern = ''
 
-  for (inSt = 0; inSt<Substrings.length; inSt++){
-      let e = Substrings[inSt]
+
+function recurrent(str, e){
+  //get all substrings.
+  // Substrings = allSubstrings(str);
+      repeatingPattern = ''
+
+  // for (inSt = Substrings.length-1; inSt>=0; inSt--){
+      // let e = Substrings[inSt]
       indexOfE = str.indexOf(e)
       lengthOfE = e.length
       isRecurrent = null
@@ -88,9 +107,9 @@ function recurrent(str){
       }
       if (isRecurrent){
         repeatingPattern = e
-        break
+        // break
       }
-  }
+  // }
 
   if(repeatingPattern != ''){
     return repeatingPattern
@@ -105,6 +124,7 @@ function longestRecurring(n){
 
   for (let i = 3; i<n; i++){
       let recObj =  div(1,i);
+      console.log(recObj)
 
       let division = recObj['res'];
       let recurrentString = recObj['recur'];
@@ -117,7 +137,7 @@ function longestRecurring(n){
   return d
 }
 
-console.log(longestRecurring(1000))
+// console.log(longestRecurring(1000))
 
 //Extreme cases test
 // console.log(recurrent("0053763440"))
@@ -125,3 +145,5 @@ console.log(longestRecurring(1000))
 // console.log(recurrent("abcabcabcabc"))
 // console.log(recurrent("xyzxyzxyzxy"))
 // console.log(recurrent("xyzxyzxyzxyc"))
+
+console.log(div(1,487))
