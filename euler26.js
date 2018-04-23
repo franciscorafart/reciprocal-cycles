@@ -54,7 +54,6 @@ function sweepRecurrent(str){
   return null
 }
 
-
 //function that tells if e is recurrent in str
 function recurrent(str, e){
       let indexOfE = str.indexOf(e)
@@ -107,6 +106,6 @@ function longestRecurring(n){
 //
 console.log(longestRecurring(1000))
 
-//TODO: Smaller recurrents are wrong
+//TODO: recurrents that divide the string by two are wrong
 // console.log(recurrent('3636','36'))
 // console.log(recurrent('364364','364'))
